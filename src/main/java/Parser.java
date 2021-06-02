@@ -8,15 +8,21 @@ import java.util.Set;
 public class Parser {
 
     private HashMap<Integer, HeapObject> map;
-    private ArrayList<HeapObject> heap, stack;
+    private ArrayList<HeapObject> heapArray, stackArray;
+    private static final String BOM = "\uFEFF";
 
     private void readHeap(FileReader heap){
         try(BufferedReader bufferedReader = new BufferedReader(heap)){
             String line;
+            HeapObject heapObject;
             while((line = bufferedReader.readLine()) != null){
+                if(line.startsWith(BOM))
+                    line = line.substring(1);
                 String[] values = line.split(",");
                 int id = Integer.parseInt(values[0]);
-                map.put(id, new HeapObject(id, Integer.parseInt(values[1]),Integer.parseInt(values[2])));
+                heapObject = new HeapObject(id, Integer.parseInt(values[1]),Integer.parseInt(values[2]));
+                map.put(id, heapObject);
+                heapArray.add(heapObject);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -27,6 +33,8 @@ public class Parser {
         try(BufferedReader br = new BufferedReader(pointers)){
             String line;
             while((line = br.readLine()) != null){
+                if(line.startsWith(BOM))
+                    line = line.substring(1);
                 String[] values = line.split(",");
                 int id1 = Integer.parseInt(values[0]), id2 = Integer.parseInt(values[1]);
                 map.get(id1).references.add(map.get(id2));
@@ -40,7 +48,9 @@ public class Parser {
         try(BufferedReader bufferedReader = new BufferedReader(roots)){
             String line;
             while((line = bufferedReader.readLine()) != null){
-                stack.add(map.get(Integer.parseInt(line)));
+                if(line.startsWith(BOM))
+                    line = line.substring(1);
+                stackArray.add(map.get(Integer.parseInt(line)));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -49,18 +59,19 @@ public class Parser {
 
     public Parser(FileReader heap, FileReader pointers, FileReader roots){
         map = new HashMap<>();
-        stack = new ArrayList<>();
+        stackArray = new ArrayList<>();
+        heapArray = new ArrayList<>();
         readHeap(heap);
         readPointers(pointers);
         readRoots(roots);
-        this.heap = new ArrayList<HeapObject>(map.values());
+        /*this.heap = new ArrayList<HeapObject>(map.values()); not in the same order as read*/
     }
 
     public ArrayList<HeapObject> getStackArray() {
-        return stack;
+        return stackArray;
     }
 
     public ArrayList<HeapObject> getHeapArray(){
-        return heap;
+        return heapArray;
     }
 }

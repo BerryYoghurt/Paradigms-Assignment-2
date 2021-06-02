@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class MarkCompact {
 
@@ -27,9 +28,11 @@ public class MarkCompact {
                     }
                 } else {//no more children to visit
                     p_current = p_parent; //return back to processing the parent
-                    i = p_current.visited - 1;
-                    p_parent = p_current.references.get(i); //get the (grand) parent
-                    p_current.references.set(i, p_child); //return pointer to normal
+                    if(p_current != vroot){
+                        i = p_current.visited - 1;
+                        p_parent = p_current.references.get(i); //get the (grand) parent
+                        p_current.references.set(i, p_child); //return pointer to normal
+                    }
                 }
 
             } while (p_current != vroot); //end the loop if next iteration will process vroot as current
@@ -38,12 +41,17 @@ public class MarkCompact {
 
     private static void calculateAndMove(ArrayList<HeapObject> heapArray) {
         int free_pointer = 0, size;
-        for(HeapObject heapObject : heapArray){
+        Iterator<HeapObject> itr = heapArray.iterator();
+        HeapObject heapObject;
+        while(itr.hasNext()){
+            heapObject = itr.next();
             if(heapObject.isVisited()){
                 size = heapObject.ending_address - heapObject.starting_address;
                 heapObject.starting_address = free_pointer;
                 heapObject.ending_address = free_pointer + size;
                 free_pointer = free_pointer + size + 1;
+            }else{
+                itr.remove();
             }
         }
     }

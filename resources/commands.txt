@@ -1,0 +1,3 @@
+java -jar GCMarkSweep.jar "D:\Uni\Term6\Paradigms\Assignment2\Garbage Collection\resources\sample test\heap.csv" "D:\Uni\Term6\Paradigms\Assignment2\Garbage Collection\resources\sample test\roots.txt" "D:\Uni\Term6\Paradigms\Assignment2\Garbage Collection\resources\sample test\pointers.csv" "D:\Uni\Term6\Paradigms\Assignment2\Garbage Collection\resources\sample test\GCMarkSweep.csv"
+
+java -jar GCCopy.jar "D:\Uni\Term6\Paradigms\Assignment2\Garbage Collection\resources\sample test\heap.csv" "D:\Uni\Term6\Paradigms\Assignment2\Garbage Collection\resources\sample test\roots.txt" "D:\Uni\Term6\Paradigms\Assignment2\Garbage Collection\resources\sample test\pointers.csv" "D:\Uni\Term6\Paradigms\Assignment2\Garbage Collection\resources\sample test\GCMarkSweep.csv"

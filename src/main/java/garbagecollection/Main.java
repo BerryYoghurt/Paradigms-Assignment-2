@@ -14,8 +14,11 @@ public class Main {
     public static void main(String[] args){
        Main.args = args;
        collectGarbage(MarkCompact::clean);
-       //print
-       //other algorithm
+        try {
+            Output.write(args[3],heapArray);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private static void collectGarbage(BiConsumer<ArrayList<HeapObject>, ArrayList<HeapObject>> garbage_collector){

@@ -1,9 +1,10 @@
+package garbagecollection;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Set;
 
 public class Parser {
 
@@ -16,8 +17,8 @@ public class Parser {
             String line;
             HeapObject heapObject;
             while((line = bufferedReader.readLine()) != null){
-                if(line.startsWith(BOM))
-                    line = line.substring(1);
+                System.out.println(BOM);
+                line = line.replaceAll("[^0-9,]","");
                 String[] values = line.split(",");
                 int id = Integer.parseInt(values[0]);
                 heapObject = new HeapObject(id, Integer.parseInt(values[1]),Integer.parseInt(values[2]));
@@ -33,8 +34,7 @@ public class Parser {
         try(BufferedReader br = new BufferedReader(pointers)){
             String line;
             while((line = br.readLine()) != null){
-                if(line.startsWith(BOM))
-                    line = line.substring(1);
+                line = line.replaceAll("[^0-9,]","");
                 String[] values = line.split(",");
                 int id1 = Integer.parseInt(values[0]), id2 = Integer.parseInt(values[1]);
                 map.get(id1).references.add(map.get(id2));
@@ -48,8 +48,7 @@ public class Parser {
         try(BufferedReader bufferedReader = new BufferedReader(roots)){
             String line;
             while((line = bufferedReader.readLine()) != null){
-                if(line.startsWith(BOM))
-                    line = line.substring(1);
+                line = line.replaceAll("[^0-9,]","");
                 stackArray.add(map.get(Integer.parseInt(line)));
             }
         } catch (IOException e) {
@@ -64,7 +63,7 @@ public class Parser {
         readHeap(heap);
         readPointers(pointers);
         readRoots(roots);
-        /*this.heap = new ArrayList<HeapObject>(map.values()); not in the same order as read*/
+        /*this.heap = new ArrayList<garbagecollection.HeapObject>(map.values()); not in the same order as read*/
     }
 
     public ArrayList<HeapObject> getStackArray() {

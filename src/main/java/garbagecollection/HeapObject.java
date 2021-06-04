@@ -1,3 +1,5 @@
+package garbagecollection;
+
 import java.util.ArrayList;
 
 public class HeapObject {
@@ -15,18 +17,6 @@ public class HeapObject {
         references = new ArrayList<>();
     }
 
-    /**used when passing from IO module to GC modules,
-     * so that the 2 GC algorithms will not interfere with each other
-     * ON SECOND THOUGHTS:: do not clone, just reread.. simpler that way
-     * THIS WILL CAUSE BUGS
-     * because references is a shallow copy and it will be complicated to make it a deep copy*/
-    @Override
-    public Object clone() throws CloneNotSupportedException {
-        super.clone();
-        HeapObject new_object = new HeapObject(this.ID, this.starting_address, this.ending_address);
-        new_object.references = (ArrayList<HeapObject>) this.references.clone();/*shallow copy*/
-        return new_object;
-    }
 
     public boolean isVisited(){
         return visited > 0;

@@ -1,10 +1,13 @@
+package garbagecollection;
+
 import java.util.*;
 
 public class Copy {
     //next empty position
     private static int position = 0;
+    private static ArrayList<HeapObject> newHeap;
     static void copy(ArrayList<HeapObject> stackArray) {
-         ArrayList<HeapObject> newHeap = new ArrayList<>();
+         newHeap = new ArrayList<>(); //I need to get it from the output module
          //copy directly accessed elements from stack to new heap
          for (HeapObject heapObject : stackArray) {
              assignNewAddress(heapObject);
@@ -45,4 +48,8 @@ public class Copy {
          heapObject.visited++;
          position += size + 1;
      }
-    }
+
+     public static ArrayList<HeapObject> getNewHeap(){
+        return newHeap;
+     }
+}

@@ -1,3 +1,3 @@
-java -jar GCMarkCompact.jar "D:\Uni\Term6\Paradigms\Assignment2\Garbage Collection\resources\sample test\heap.csv" "D:\Uni\Term6\Paradigms\Assignment2\Garbage Collection\resources\sample test\roots.txt" "D:\Uni\Term6\Paradigms\Assignment2\Garbage Collection\resources\sample test\pointers.csv" "D:\Uni\Term6\Paradigms\Assignment2\Garbage Collection\resources\sample test\GCMarkSweep.csv"
+java -jar GCMarkCompact.jar "resources\sample test\heap.csv" "resources\sample test\roots.txt" "resources\sample test\pointers.csv" "resources\sample test\GCMarkSweep.csv" 
 
-java -jar GCCopy.jar "D:\Uni\Term6\Paradigms\Assignment2\Garbage Collection\resources\sample test\heap.csv" "D:\Uni\Term6\Paradigms\Assignment2\Garbage Collection\resources\sample test\roots.txt" "D:\Uni\Term6\Paradigms\Assignment2\Garbage Collection\resources\sample test\pointers.csv" "D:\Uni\Term6\Paradigms\Assignment2\Garbage Collection\resources\sample test\GCCopy.csv"
+java -jar GCCopy.jar "resources\sample test\heap.csv" "resources\sample test\roots.txt" "resources\sample test\GCCopy.csv"
